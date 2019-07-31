@@ -1,7 +1,14 @@
 # override_ios_simulator_status
 
-This repo contains a bash script with a command that runs `xcrun simctl status_bar <device> override` for each currently open iOS simulator. The arguments are the same as they are for `xcrun simctl status_bar <device> override`; run `xcrun simctl help status_bar` for those arguments.
-	
+Xcode 11 beta 4 introduces a command line utility for modifying the status bar of an open iOS simulator. Here's an example:
+
+```
+xcrun simctl status_bar <device> override --time "9:41" --batteryLevel 100
+```
+
+The problem with this command is that you must supply <device>, which is the UUID of the simulator you have open.
+
+This repo contains a bash script that applies the args after `override` in the above command to all simulators that are currently open.
 
 ## Installation
 
@@ -14,7 +21,8 @@ brew install override_ios_simulator_status
 
 ```
 override_ios_simulator_status --time "9:41" --batteryLevel 100
+override_ios_simulator_status --default # Applies a time of 9:41 and battery 100%
 override_ios_simulator_status --help
 ```
 
-Basically you can feed it the same args that would go after `override` in `xcrun simctl status_bar <device> override`.
+Basically, you can feed it the same args that would go after `override` in `xcrun simctl status_bar <device> override`. The `--default` argument is specific to this script, and applies the Apple standard of 9:41 AM and 100% battery life for screenshots.
