@@ -6,11 +6,11 @@ for each currently open iOS simulator. The arguments are the same
 as they are for \`xcrun simctl status_bar <device> override\`; 
 run \`xcrun simctl help status_bar\` for those arguments.
 
-If you use no arguments, a time of 9:41 AM and a battery 
-level of 100% will be applied.
-
 Usage:
 override_ios_simulator_status <args>
+
+Supply an argument of (-d|--default) to apply a time of 9:41 AM 
+and a battery level of 100%.
 "
 
 # Parse arguments
@@ -31,9 +31,10 @@ if [[ $HELP -eq 1 ]]; then
 	exit
 fi
 
-# Raise DEFAULT flag if no arguments were supplied
+# Display help if no arguments were supplied
 if [[ $# -eq 0 ]]; then
-	DEFAULT=1
+	echo "$usage"
+	exit
 fi
 
 uuidPattern="([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})"
