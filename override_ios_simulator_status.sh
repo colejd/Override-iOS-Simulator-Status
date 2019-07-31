@@ -17,10 +17,10 @@ override_ios_simulator_status <args>
 for i in "$@"; do
 case $i in
     -h|--help)
-    local HELP=1
+    HELP=1
     ;;
     -d|--default)
-    local DEFAULT=1
+    DEFAULT=1
     ;;
 esac
 done
@@ -28,21 +28,21 @@ done
 # Display help option
 if [[ $HELP -eq 1 ]]; then
 	echo "$usage"
-	return 0
+	exit
 fi
 
 # Raise DEFAULT flag if no arguments were supplied
 if [[ $# -eq 0 ]]; then
-	local DEFAULT=1
+	DEFAULT=1
 fi
 
 uuidPattern="([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})"
 
 devices=`xcrun simctl list devices | grep "(Booted)"`
 
-if test -z $devices; then
+if test -z "$devices"; then
 	echo "No simulators are open."
-	return 0
+	exit
 fi
 
 echo $devices |
