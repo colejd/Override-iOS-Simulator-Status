@@ -9,8 +9,8 @@ run \`xcrun simctl help status_bar\` for those arguments.
 Usage:
 override_ios_simulator_status <args>
 
-Supply an argument of (-d|--default) to apply a time of 9:41 AM 
-and a battery level of 100%.
+Supply an argument of (-d|--default) to apply a time of 9:41 AM,
+a battery level of 100%, and full wifi/cellular signal.
 "
 
 # Parse arguments
@@ -56,8 +56,8 @@ while IFS= read -r line; do
 	if test -n $uuid; then
 		if [[ $DEFAULT -eq 1 ]]; then
 			echo "Applying default args to $trimmedLine"
-			echo "--time \"9:41\" --batteryLevel 100"
-			xcrun simctl status_bar $uuid override --time "9:41" --batteryLevel 100
+			echo "--time 9:41 --batteryLevel 100 --cellularBars 4 --wifiBars 3"
+			xcrun simctl status_bar $uuid override --time 9:41 --batteryLevel 100 --cellularBars 4 --wifiBars 3
 		else
 			echo "Applying args to $trimmedLine"
 			xcrun simctl status_bar $uuid override $@
